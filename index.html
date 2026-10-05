@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Poker Roguelike</title>
+<meta name="theme-color" content="#120a2b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Poker Roguelike">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,12 +23,12 @@
   <aside id="side">
     <div class="banner" id="banner">Runde 1</div>
 
-    <div class="row2">
+    <div class="row2" id="rowMoney">
       <section class="box"><div class="lbl">Ziel</div><div class="val accent" id="target">300</div></section>
       <section class="box"><div class="lbl">Geld</div><div class="val money" id="moneyVal">0 €</div></section>
     </div>
 
-    <section class="box">
+    <section class="box" id="scoreBox">
       <div class="lbl">Punkte</div>
       <div class="val" id="score">0</div>
       <div class="progress"><div id="bar"></div></div>
@@ -36,7 +43,7 @@
       </div>
     </section>
 
-    <div class="row2">
+    <div class="row2" id="rowHands">
       <div class="box"><div class="lbl">Hände</div><div class="val hands-val" id="handsLeft">4</div></div>
       <div class="box"><div class="lbl">Abwürfe</div><div class="val discards-val" id="discardsLeft">3</div></div>
     </div>
@@ -74,6 +81,8 @@
     </div>
   </main>
 </div>
+
+<div id="rotateHint"><div>Bitte das Handy hochkant halten</div></div>
 
 <div id="popup"></div>
 
@@ -135,5 +144,8 @@
 <script src="js/jokers/art-6-nordkapp.js"></script>
 <script src="js/jokers/data.js"></script>
 <script src="js/game.js"></script>
+<script>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(function () {});
+</script>
 </body>
 </html>

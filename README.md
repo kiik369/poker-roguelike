@@ -6,6 +6,11 @@ die beim Start per Code gemalt wird. Es gibt keine Bilddateien, und alles ist ei
 
 Spielen: Die Seite läuft direkt über GitHub Pages (`index.html`). Es ist keine Installation nötig.
 
+## Auf dem Handy
+
+Die Seite ist für Handys im Hochformat eingerichtet (getestet in 360 px Breite). Im Querformat erscheint ein Hinweis, das Handy hochkant zu halten.
+Zum Startbildschirm hinzufügen: Chrome-Menü (drei Punkte) → „Zum Startbildschirm hinzufügen“ oder „App installieren“. Dann startet das Spiel wie eine App im Vollbild.
+
 ## Aufbau
 
 ```
@@ -17,6 +22,8 @@ js/game.js            Spiellogik: Runden, Wertung, Shop, Sammlung, Töne, Effekt
 js/jokers/core.js     Joker-Karte: Rahmen, Seltenheit, Zeichenhilfen (62x83 Pixel)
 js/jokers/art-*.js    Joker-Motive (je eine Funktion pro Joker)
 js/jokers/data.js     Joker-Liste: Name, Seltenheit, Text, Wirkung
+manifest.json, sw.js  Installierbare App (Startbildschirm, offline spielbar)
+icons/                App-Symbole
 ```
 
 ## Häufige Änderungen

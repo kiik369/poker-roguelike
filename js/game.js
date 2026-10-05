@@ -81,6 +81,7 @@
     } else {
       H = main.clientHeight;
     }
+    const phone = window.matchMedia('(max-width: 520px)').matches;
     let s = 2;
     const jokerH = n => 83 * n + 34;   // Jokerleiste: Joker in n-facher Groesse plus Rand
     for (let k = 4; k >= 2; k--) {
@@ -91,10 +92,10 @@
     }
     // Joker gross anzeigen, wenn noch Platz ist
     const needBigJ = (portrait ? 142 * s + 90 : 2 * CARD_H * s + 270) + jokerH(2) - 110;
-    const jpx = needBigJ <= H && (5 * (62 * 2 + 12)) <= W ? 2 : 1;
+    const jpx = !phone && needBigJ <= H && (5 * (62 * 2 + 12)) <= W ? 2 : 1;
     root.style.setProperty('--jpx', jpx + 'px');
     const cw = CARD_W * s;
-    const availW = W - (portrait ? 0 : cw + 50) - cw * (portrait ? 0.9 : 0.4);
+    const availW = W - (portrait ? 0 : cw + 50) - cw * (phone ? 0.65 : portrait ? 0.9 : 0.4);
     const step = Math.min(cw * 0.8, (availW - cw) / (handSize() - 1));
     root.style.setProperty('--card-w', cw + 'px');
     root.style.setProperty('--px', s + 'px');

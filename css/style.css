@@ -341,3 +341,51 @@ table.hands td:nth-child(n+2), table.hands th:nth-child(n+2) { text-align: right
 #jokerDialog { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 #jokerDialog .jk { cursor: default; }
 @media (max-width: 860px), (max-aspect-ratio: 1/1) { #jokerBar { flex-wrap: wrap; } }
+
+/* ---------- Handy hochkant (z. B. 360 px breit) ---------- */
+#rotateHint { display: none; }
+@media (max-width: 520px) {
+  html, body { height: 100%; }
+  #app { height: 100dvh; min-height: 0; padding: 6px; gap: 6px; grid-template-rows: auto minmax(0, 1fr); }
+  #side { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; padding: 6px; }
+  #side .banner { grid-column: span 2; order: 1; font-size: .8rem; padding: 4px 2px; letter-spacing: .04em; align-self: stretch; display: flex; align-items: center; justify-content: center; }
+  #rowMoney .box { order: 2; }
+  #side #rowMoney .box:nth-child(2) { order: 3; }
+  #side #scoreBox { grid-column: span 2; order: 4; }
+  #side #rowHands .box:nth-child(1) { order: 5; }
+  #side #rowHands .box:nth-child(2) { order: 6; }
+  #side .scorebox { order: 7; }
+  #side .small-info { display: none; }
+  #side .side-buttons { order: 8; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+  .box { padding: 3px 6px; }
+  .box .lbl { font-size: .5rem; }
+  .box .val, .row2 .val { font-size: 1rem; line-height: 1.05; }
+  .progress { height: 5px; margin-top: 2px; }
+  .scorebox { padding: 4px 6px; }
+  .handname { font-size: .7rem; min-height: 1em; margin-bottom: 2px; }
+  .cm .chips, .cm .mult { font-size: 1.05rem; padding: 3px 4px; min-height: 0; }
+  .side-buttons button.mini { min-height: 28px; padding: 4px 2px; font-size: .52rem; margin-bottom: 0; letter-spacing: 0; }
+  #main { min-height: 0; }
+  #jokerBar { justify-content: center; padding: 0; }
+  #jokerRow { gap: 4px; }
+  #jokerInfo { display: none; }
+  .controls { gap: 6px; flex-wrap: nowrap; }
+  .controls button { padding: 6px 4px; font-size: .75rem; min-height: 44px; }
+  .controls button small { font-size: .55rem; }
+  #handZone { padding-top: calc(var(--px) * 9); padding-bottom: 18px; }
+  .hand-count, .zone-count { font-size: .6rem; }
+  .dialog { padding: 14px; max-width: 94vw; }
+  .dialog h2 { font-size: 1.1rem; }
+  .dialog.wide .offer { width: calc(50% - 8px); }
+  .offers, #collGrid { gap: 12px 8px; }
+  .offer .jtext { font-size: .64rem; }
+  #shopNext { position: sticky; bottom: -14px; }
+}
+/* Handy quer: zu wenig Hoehe fuer das Spielfeld, deshalb ein Hinweis */
+@media (orientation: landscape) and (max-height: 480px) and (max-width: 1000px) {
+  #rotateHint { display: flex; position: fixed; inset: 0; z-index: 100; background: var(--bg0); align-items: center; justify-content: center; text-align: center; padding: 24px; font-size: 1.1rem; line-height: 1.5; }
+}
+@media (max-width: 520px) {
+  .banner, .box .val, .cm .chips, .cm .mult { text-shadow: 1px 1px 0 var(--ink); }
+  #shopNext { box-shadow: 0 -12px 0 var(--panel); }
+}
