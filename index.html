@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Poker Roguelike</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="bg" width="128" height="72"></canvas>
+<div id="bgImg"></div>
+<canvas id="fxCanvas"></canvas>
+<div id="flash"></div>
+
+<div id="app">
+  <aside id="side">
+    <div class="banner" id="banner">Runde 1</div>
+
+    <div class="row2">
+      <section class="box"><div class="lbl">Ziel</div><div class="val accent" id="target">300</div></section>
+      <section class="box"><div class="lbl">Geld</div><div class="val money" id="moneyVal">0 €</div></section>
+    </div>
+
+    <section class="box">
+      <div class="lbl">Punkte</div>
+      <div class="val" id="score">0</div>
+      <div class="progress"><div id="bar"></div></div>
+    </section>
+
+    <section class="box scorebox">
+      <div class="handname" id="handName">&nbsp;</div>
+      <div class="cm">
+        <div class="chips" id="chipsBox">0</div>
+        <div class="x">×</div>
+        <div class="mult" id="multBox">0</div>
+      </div>
+    </section>
+
+    <div class="row2">
+      <div class="box"><div class="lbl">Hände</div><div class="val hands-val" id="handsLeft">4</div></div>
+      <div class="box"><div class="lbl">Abwürfe</div><div class="val discards-val" id="discardsLeft">3</div></div>
+    </div>
+
+    <div class="small-info" id="best"></div>
+
+    <div class="side-buttons">
+      <button class="mini" id="helpBtn">Handwerte</button>
+      <button class="mini" id="collBtn">Sammlung</button>
+      <button class="mini" id="fxBtn">Anzeige</button>
+      <button class="mini" id="restartBtn">Neu starten</button>
+    </div>
+  </aside>
+
+  <main id="main">
+    <div id="jokerBar"><div id="jokerRow"></div><div id="jokerInfo"></div></div>
+    <div id="playedZone">
+      <div id="playedRow"></div>
+      <div class="zone-count" id="selCount">0/5</div>
+    </div>
+
+    <div class="controls">
+      <button class="primary" id="playBtn" disabled>Spielen <small id="playSub">Hände: 4</small></button>
+      <button class="danger" id="discardBtn" disabled>Abwerfen <small id="discardSub">Abwürfe: 3</small></button>
+      <button id="sortBtn">Sortieren <small id="sortSub">nach Rang</small></button>
+    </div>
+
+    <div id="handZone">
+      <div class="hand" id="hand"></div>
+      <div class="hand-count" id="handCount">0/8</div>
+      <div class="deck" id="deck">
+        <div class="pile"><canvas id="deckCanvas" width="41" height="56"></canvas></div>
+        <div class="deck-count" id="deckCount">52/52</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="popup"></div>
+
+<div class="overlay" id="endOverlay">
+  <div class="dialog" id="endDialog"></div>
+</div>
+
+<div class="overlay" id="fxOverlay">
+  <div class="dialog">
+    <h2>Anzeige</h2>
+    <div class="setting-row"><span>Bewegter Hintergrund</span><button class="mini" id="fxBgBtn"></button></div>
+    <div class="setting-row"><span>Hintergrund</span>
+      <select id="bgMode"><option value="plasma">Bewegtes Muster</option><option value="repo">Bild aus dem Repo</option><option value="device">Bild vom Gerät</option></select></div>
+    <div class="setting-row" id="bgNameRow"><span>Dateiname</span><input type="text" id="bgName" value="hintergrund.jpg" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
+    <div class="setting-row" id="bgPickRow"><span>Bild wählen</span><button class="mini" id="bgPick">Wählen</button><input type="file" id="bgFile" accept="image/*" hidden></div>
+    <div class="setting-hint" id="bgHint"></div>
+    <div class="setting-row"><span>Töne</span><button class="mini" id="sndBtn"></button></div>
+    <div class="setting-row"><span>CRT-Linien</span><button class="mini" id="fxLinesBtn"></button></div>
+    <div class="setting-row"><span>Gewölbter Bildschirm</span><button class="mini" id="fxCurveBtn"></button></div>
+    <button class="primary" id="fxClose">Schließen</button>
+  </div>
+</div>
+
+<div class="overlay" id="helpOverlay">
+  <div class="dialog">
+    <h2>Handwerte</h2>
+    <p>Punkte = (Basis + Kartenwerte) × Multiplikator</p>
+    <table class="hands" id="handsTable"></table>
+    <p>Kartenwerte: 2–10 = Zahl, J/Q/K = 10, Ass = 11. Nur Karten, die zur Hand gehören (grüner Rand), zählen.</p>
+    <button class="primary" id="helpClose">Schließen</button>
+  </div>
+</div>
+
+<div class="overlay" id="shopOverlay">
+  <div class="dialog wide" id="shopDialog"></div>
+</div>
+
+<div class="overlay" id="jokerOverlay">
+  <div class="dialog" id="jokerDialog"></div>
+</div>
+
+<div class="overlay" id="collOverlay">
+  <div class="dialog wide">
+    <h2>Sammlung</h2>
+    <p id="collCount"></p>
+    <div id="collGrid"></div>
+    <button class="primary" id="collClose">Schließen</button>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/jokers/core.js"></script>
+<script src="js/jokers/art-1-technik-1.js"></script>
+<script src="js/jokers/art-2-technik-2-und-alltag.js"></script>
+<script src="js/jokers/art-3-musik-und-buero.js"></script>
+<script src="js/jokers/art-4-reise-und-glueck.js"></script>
+<script src="js/jokers/art-5-spiel-und-zauber.js"></script>
+<script src="js/jokers/art-6-nordkapp.js"></script>
+<script src="js/jokers/data.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
